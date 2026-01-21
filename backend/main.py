@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import create_engine, Column, Integer, String, Date, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
-from geoalchemy2 import Geometry
+# from geoalchemy2 import Geometry
 import os
 import subprocess
 from typing import List, Optional
@@ -98,4 +98,5 @@ def list_scenes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
+
 
