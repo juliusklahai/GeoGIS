@@ -1,0 +1,11 @@
+rasterio
+shapely
+geopandas
+pystac-client
+odc-stac
+sqlalchemy
+psycopg2-binary
+geoalchemy2
+numpy
+pandas
+requests
