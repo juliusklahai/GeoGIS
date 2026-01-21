@@ -24,17 +24,17 @@ elif os.path.exists("backend/frontend"):
 # Use DATABASE_URL from .env (Supabase Connection String)
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Improved connection handling: don't crash at startup if URL is missing
+engine = None
+SessionLocal = None
+
 if DATABASE_URL:
     try:
         engine = create_engine(DATABASE_URL)
         SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+        print("Database engine initialized successfully.")
     except Exception as e:
-        print(f"Warning: Could not create engine: {e}")
-        DATABASE_URL = None
+        print(f"Error: Could not create database engine: {e}")
 
-Base = declarative_base()
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 # Models (Simplified for API)
@@ -60,6 +60,8 @@ class ProcessRequest(BaseModel):
 
 # Dependency
 def get_db():
+    if not SessionLocal:
+        raise HTTPException(status_code=500, detail="Database not configured")
     db = SessionLocal()
     try:
         yield db
