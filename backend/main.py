@@ -18,17 +18,22 @@ app = FastAPI(title="ForestWatch API")
 # Serve Frontend
 if os.path.exists("frontend"):
     app.mount("/dashboard", StaticFiles(directory="frontend", html=True), name="frontend")
-elif os.path.exists("backend/frontend"): # Handling local run vs docker
+elif os.path.exists("backend/frontend"):
     app.mount("/dashboard", StaticFiles(directory="backend/frontend", html=True), name="frontend")
 
 # Use DATABASE_URL from .env (Supabase Connection String)
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-if not DATABASE_URL:
-    # Fallback to local if not provided
-    DATABASE_URL = "postgresql://user:password@localhost:5432/geogis"
+# Improved connection handling: don't crash at startup if URL is missing
+if DATABASE_URL:
+    try:
+        engine = create_engine(DATABASE_URL)
+        SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    except Exception as e:
+        print(f"Warning: Could not create engine: {e}")
+        DATABASE_URL = None
 
-engine = create_engine(DATABASE_URL)
+Base = declarative_base()
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
