@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForestWatch | National Spatial Monitoring</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--accent-primary)"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z" />
+            </svg>
+            <div>
+                <h1>ForestWatch</h1>
+                <span>Automated Forest Monitoring System</span>
+            </div>
+        </div>
+        <div class="status-bar">
+            <span>Sentinel-2 / Landsat 8 • Updated Jan 21, 2026</span>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- KPI Cards -->
+        <section class="kpi-section">
+            <div class="kpi-card">
+                <span class="label">Total Forest Cover</span>
+                <span class="value">12.43 <small>M ha</small></span>
+                <span class="trend down">↓ 0.02% vs last month</span>
+            </div>
+            <div class="kpi-card">
+                <span class="label">Monthly Loss</span>
+                <span class="value">980 <small>ha</small></span>
+                <span class="trend down">↑ 12.5% vs last month</span>
+            </div>
+            <div class="kpi-card">
+                <span class="label">Monthly Gain</span>
+                <span class="value">1,230 <small>ha</small></span>
+                <span class="trend up">↑ 8.2% vs last month</span>
+            </div>
+            <div class="kpi-card">
+                <span class="label">Active Alerts</span>
+                <span class="value">18</span>
+                <span class="trend down">↓ 3% vs last month</span>
+            </div>
+        </section>
+
+        <!-- Map Area -->
+        <section class="map-area">
+            <div id="map"></div>
+            <div class="map-controls">
+                <h4>Map Layers</h4>
+                <div class="layer-item">
+                    <input type="checkbox" id="sat-toggle" checked>
+                    <label for="sat-toggle">Satellite Imagery</label>
+                </div>
+                <div class="layer-item">
+                    <input type="checkbox" id="loss-toggle" checked>
+                    <label for="loss-toggle">Forest Loss</label>
+                </div>
+                <div class="layer-item">
+                    <input type="checkbox" id="gain-toggle">
+                    <label for="gain-toggle">Forest Gain</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alerts Panel -->
+        <aside class="alerts-panel">
+            <div class="panel-header">Active Alerts (18)</div>
+            <div class="alerts-list">
+                <div class="alert-item">
+                    <span class="type critical">CRITICAL</span>
+                    <h4>Forest Loss</h4>
+                    <p>Sector 12, Zone B • 45.6 ha</p>
+                    <small>Detected 2 days ago</small>
+                </div>
+                <div class="alert-item">
+                    <span class="type high">HIGH</span>
+                    <h4>Degradation</h4>
+                    <p>Northern Edge • 23.4 ha</p>
+                    <small>Detected 5 days ago</small>
+                </div>
+                <div class="alert-item">
+                    <span class="type high">HIGH</span>
+                    <h4>Fire Detected</h4>
+                    <p>Central Valley • 12.8 ha</p>
+                    <small>Detected 1 week ago</small>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Chart Area -->
+        <section class="chart-area">
+            <h4>Monthly Forest Change (Hectares)</h4>
+            <canvas id="changeChart"></canvas>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

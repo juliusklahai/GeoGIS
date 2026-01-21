@@ -1,0 +1,174 @@
+:root {
+    --bg-dark: #0d1117;
+    --card-bg: #161b22;
+    --accent-primary: #238636; /* Forest Green */
+    --accent-secondary: #1f6feb; /* Water Blue */
+    --danger: #da3633; /* Loss Red */
+    --warning: #d29922; /* Warning Orange */
+    --text-main: #c9d1d9;
+    --text-muted: #8b949e;
+    --border-color: #30363d;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 24px;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand h1 {
+    font-size: 1.25rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.brand span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    grid-template-rows: auto 1fr 250px;
+    gap: 16px;
+    padding: 16px;
+    height: calc(100vh - 60px);
+}
+
+/* KPI Cards */
+.kpi-section {
+    grid-column: 1 / 2;
+    display: flex;
+    gap: 16px;
+}
+
+.kpi-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.kpi-card .label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kpi-card .value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 8px 0;
+}
+
+.kpi-card .trend {
+    font-size: 0.85rem;
+}
+
+.trend.up { color: var(--accent-primary); }
+.trend.down { color: var(--danger); }
+
+/* Map Area */
+.map-area {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+/* Layer Control Overrides */
+.map-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(22, 27, 34, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 1000;
+    width: 180px;
+}
+
+/* Alerts Panel */
+.alerts-panel {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+}
+
+.alert-item {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.alert-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.alert-item .type {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.type.critical { background: var(--danger); color: white; }
+.type.high { background: var(--warning); color: black; }
+
+/* Chart Area */
+.chart-area {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 16px;
+}
