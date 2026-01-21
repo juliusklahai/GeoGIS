@@ -1,4 +1,5 @@
 from fastapi import FastAPI, BackgroundTasks, HTTPException, Depends
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import create_engine, Column, Integer, String, Date, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
@@ -13,6 +14,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI(title="ForestWatch API")
+
+# Serve Frontend
+if os.path.exists("frontend"):
+    app.mount("/dashboard", StaticFiles(directory="frontend", html=True), name="frontend")
+elif os.path.exists("backend/frontend"): # Handling local run vs docker
+    app.mount("/dashboard", StaticFiles(directory="backend/frontend", html=True), name="frontend")
 
 # Use DATABASE_URL from .env (Supabase Connection String)
 DATABASE_URL = os.getenv("DATABASE_URL")
